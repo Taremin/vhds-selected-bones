@@ -41,7 +41,7 @@ class VHDSOnlySelectedBonesOperator(bpy.types.Operator):
 
         # change use_deform
         for bone in armature.data.bones:
-            restore.append((bone, bone.use_deform))
+            restore.append((bone.name, bone.use_deform))
             if bone.select:
                 bone.use_deform = True
             else:
@@ -51,8 +51,8 @@ class VHDSOnlySelectedBonesOperator(bpy.types.Operator):
         bpy.ops.wm.voxel_heat_diffuse()
 
         # restore use_deform
-        for (bone, use_deform) in restore:
-            bone.use_deform = use_deform
+        for (bone_name, use_deform) in restore:
+            armature.data.bones[bone_name].use_deform = use_deform
 
         return {'FINISHED'}
 
